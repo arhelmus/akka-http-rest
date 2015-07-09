@@ -1,13 +1,14 @@
 package me.archdev.restapi.http
 
 import akka.http.scaladsl.server.Directives._
-import me.archdev.restapi.http.routes.UsersServiceRoute
+import me.archdev.restapi.http.routes.{ AuthServiceRoute, UsersServiceRoute }
 
-trait HttpService extends BaseService with UsersServiceRoute {
+trait HttpService extends BaseService with UsersServiceRoute with AuthServiceRoute {
 
   val routes =
     pathPrefix("v1") {
-      usersRoute
+      usersRoute ~
+        authRoute
     }
 
 }

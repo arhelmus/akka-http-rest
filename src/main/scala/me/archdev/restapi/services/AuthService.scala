@@ -1,6 +1,6 @@
 package me.archdev.restapi.services
 
-import me.archdev.restapi.models.UserEntity
+import me.archdev.restapi.models.{ TokenEntity, UserEntity }
 
 object AuthService extends AuthService
 
@@ -8,9 +8,9 @@ trait AuthService {
 
   val user = UserEntity(Some(1), "Arhelmus", "test")
 
-  def signIn(login: String, password: String): Option[UserEntity] = {
+  def signIn(login: String, password: String): Option[TokenEntity] = {
     if (login == "Arhelmus" && password == "test") {
-      Some(user)
+      Some(TokenEntity(Some(1), "test"))
     } else {
       None
     }
