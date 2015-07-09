@@ -1,6 +1,6 @@
 package me.archdev.restapi.utils
 
-import me.archdev.restapi.models.UserEntity
+import me.archdev.restapi.models._
 import spray.json.DefaultJsonProtocol
 
 trait Protocol extends DefaultJsonProtocol {

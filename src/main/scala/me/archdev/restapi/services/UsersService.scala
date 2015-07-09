@@ -1,6 +1,6 @@
 package me.archdev.restapi.services
 
-import me.archdev.restapi.models.UserEntity
+import me.archdev.restapi.models.{ UserEntityUpdate, UserEntity }
 
 import scala.collection.{ immutable, mutable }
 
@@ -19,17 +19,18 @@ trait UsersService {
 
   def getUserByLogin(login: String): Option[UserEntity] = users.find(_.username == login)
 
-  def saveUser(user: UserEntity): UserEntity = {
-    user.id match {
-      case Some(id) =>
-        users -= users.find(_.id.get == id).get
-        users += user
-        user
-      case None =>
-        val newUser = user.copy(id = Some(users.maxBy(_.id.get).id.get + 1))
-        users += newUser
-        newUser
-    }
+  def createUser(user: UserEntity): UserEntity = {
+    val newUser = user.copy(id = Some(users.maxBy(_.id.get).id.get + 1))
+    users += newUser
+    newUser
+  }
+
+  def updateUser(id: Long, userUpdate: UserEntityUpdate): UserEntity = {
+    val oldUser = users.find(_.id.get == id).get
+    val newUser = userUpdate.merge(oldUser)
+    users -= oldUser
+    users += newUser
+    newUser
   }
 
   def deleteUser(id: Long): Boolean = {

@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatchers.IntNumber
 import me.archdev.restapi.http.BaseService
-import me.archdev.restapi.models.UserEntity
+import me.archdev.restapi.models.{ UserEntityUpdate, UserEntity }
 import me.archdev.restapi.services.UsersService
 
 import spray.json._
@@ -13,6 +13,8 @@ trait UsersServiceRoute extends BaseService with UsersService {
 
   import StatusCodes._
 
+  implicit val usersUpdateFormat = jsonFormat2(UserEntityUpdate)
+
   val usersRoute = pathPrefix("users") {
     pathEndOrSingleSlash {
       get {
@@ -20,7 +22,7 @@ trait UsersServiceRoute extends BaseService with UsersService {
       } ~
         post {
           entity(as[UserEntity]) { userEntity =>
-            complete(Created -> saveUser(userEntity).toJson)
+            complete(Created -> createUser(userEntity).toJson)
           }
         }
     } ~
@@ -39,8 +41,10 @@ trait UsersServiceRoute extends BaseService with UsersService {
           get {
             complete(getUserById(id).toJson)
           } ~
-            put {
-              complete("update user " + id)
+            post {
+              entity(as[UserEntityUpdate]) { userUpdate =>
+                complete(updateUser(id, userUpdate).toJson)
+              }
             } ~
             delete {
               complete(NoContent -> deleteUser(id).toJson)
