@@ -9,8 +9,8 @@ object UsersService extends UsersService
 trait UsersService {
 
   val users = mutable.Set(
-    UserEntity(Some(1), "Arhelmus"),
-    UserEntity(Some(2), "Tetsu")
+    UserEntity(Some(1), "Arhelmus", "password"),
+    UserEntity(Some(2), "Tetsu", "password")
   )
 
   def getUsers(): immutable.Set[UserEntity] = users.toSet

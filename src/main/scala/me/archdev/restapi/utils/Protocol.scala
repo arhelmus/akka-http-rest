@@ -4,5 +4,5 @@ import me.archdev.restapi.models._
 import spray.json.DefaultJsonProtocol
 
 trait Protocol extends DefaultJsonProtocol {
-  implicit val usersFormat = jsonFormat2(UserEntity)
+  implicit val usersFormat = jsonFormat3(UserEntity)
 }

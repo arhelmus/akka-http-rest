@@ -3,13 +3,13 @@ package me.archdev.restapi.http.routes
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatchers.IntNumber
-import me.archdev.restapi.http.BaseService
-import me.archdev.restapi.models.{ UserEntityUpdate, UserEntity }
+import me.archdev.restapi.http.{SecurityDirectives, BaseService}
+import me.archdev.restapi.models.{UserEntityUpdate, UserEntity}
 import me.archdev.restapi.services.UsersService
 
 import spray.json._
 
-trait UsersServiceRoute extends BaseService with UsersService {
+trait UsersServiceRoute extends UsersService with BaseService with SecurityDirectives {
 
   import StatusCodes._
 
@@ -28,12 +28,16 @@ trait UsersServiceRoute extends BaseService with UsersService {
     } ~
       pathPrefix("me") {
         pathEndOrSingleSlash {
-          get {
-            complete("get current user")
-          } ~
-            put {
-              complete("update current user")
-            }
+          authenticate { user =>
+            get {
+              complete(user.toJson)
+            } ~
+              post {
+                entity(as[UserEntityUpdate]) { userUpdate =>
+                  complete(updateUser(user.id.get, userUpdate).toJson)
+                }
+              }
+          }
         }
       } ~
       pathPrefix(IntNumber) { id =>
