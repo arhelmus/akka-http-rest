@@ -1,0 +1,7 @@
+language: scala
+scala:
+   - 2.11.7
+addons:
+   postgresql: "9.3"
+
+script: "sbt test"
