@@ -1,9 +1,9 @@
 import scalariform.formatter.preferences._
 
-name          := "minimal-scala-akka-http-seed"
-organization  := "com.github.yeghishe"
-version       := "0.0.1"
-scalaVersion  := "2.11.6"
+name          := "akka-http-rest"
+organization  := "me.archdev"
+version       := "1.0.0"
+scalaVersion  := "2.11.7"
 scalacOptions := Seq("-unchecked", "-feature", "-deprecation", "-encoding", "utf8")
 
 libraryDependencies ++= {
