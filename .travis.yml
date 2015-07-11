@@ -4,4 +4,7 @@ scala:
 addons:
    postgresql: "9.3"
 
+before_script:
+  - psql -c 'create database akka-http-rest-test;' -U postgres
+
 script: "sbt test"
