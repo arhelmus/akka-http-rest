@@ -21,6 +21,7 @@ libraryDependencies ++= {
     "com.typesafe.slick" %% "slick"                                % slickVersion,
     "org.slf4j"          %  "slf4j-nop"                            % "1.6.4",
     "org.postgresql"     %  "postgresql"                           % "9.4-1201-jdbc41",
+    "org.mindrot"        %  "jbcrypt"                              % "0.3m",
     "org.scalatest"      %% "scalatest"                            % scalaTestV       % "it,test",
     "org.scalamock"      %% "scalamock-scalatest-support"          % scalaMockV       % "it,test",
     "org.scalaz"         %% "scalaz-scalacheck-binding"            % scalazV          % "it,test",
