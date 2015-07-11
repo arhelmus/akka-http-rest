@@ -48,3 +48,5 @@ initialCommands := """|import scalaz._
                       |import akka.util._
                       |import scala.concurrent._
                       |import scala.concurrent.duration._""".stripMargin
+
+parallelExecution in Test := false
