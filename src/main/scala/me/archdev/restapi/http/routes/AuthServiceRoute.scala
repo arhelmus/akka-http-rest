@@ -16,7 +16,7 @@ trait AuthServiceRoute extends AuthService with BaseService with SecurityDirecti
       pathEndOrSingleSlash {
         post {
           entity(as[LoginPassword]) { loginPassword =>
-            complete(signIn(loginPassword.login, loginPassword.password).toJson)
+            complete(signIn(loginPassword.login, loginPassword.password).map(_.toJson))
           }
         }
       }

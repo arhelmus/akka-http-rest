@@ -18,23 +18,23 @@ trait UsersServiceRoute extends UsersService with BaseService with SecurityDirec
   val usersRoute = pathPrefix("users") {
     pathEndOrSingleSlash {
       get {
-        complete(getUsers().toJson)
+        complete(getUsers().map(_.toJson))
       } ~
         post {
           entity(as[UserEntity]) { userEntity =>
-            complete(Created -> createUser(userEntity).toJson)
+            complete(Created -> createUser(userEntity).map(_.toJson))
           }
         }
     } ~
       pathPrefix("me") {
         pathEndOrSingleSlash {
-          authenticate { user =>
+          authenticate { loggedUser =>
             get {
-              complete(user.toJson)
+              complete(loggedUser)
             } ~
               post {
                 entity(as[UserEntityUpdate]) { userUpdate =>
-                  complete(updateUser(user.id.get, userUpdate).toJson)
+                  complete(updateUser(loggedUser.id.get, userUpdate).map(_.toJson))
                 }
               }
           }
@@ -43,15 +43,15 @@ trait UsersServiceRoute extends UsersService with BaseService with SecurityDirec
       pathPrefix(IntNumber) { id =>
         pathEndOrSingleSlash {
           get {
-            complete(getUserById(id).toJson)
+            complete(getUserById(id).map(_.toJson))
           } ~
             post {
               entity(as[UserEntityUpdate]) { userUpdate =>
-                complete(updateUser(id, userUpdate).toJson)
+                complete(updateUser(id, userUpdate).map(_.toJson))
               }
             } ~
             delete {
-              complete(NoContent -> deleteUser(id).toJson)
+              complete(NoContent -> deleteUser(id).map(_.toJson))
             }
         }
       }

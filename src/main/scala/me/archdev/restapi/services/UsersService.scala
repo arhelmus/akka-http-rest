@@ -1,41 +1,32 @@
 package me.archdev.restapi.services
 
+import me.archdev.restapi.models.db.UserEntityTable
 import me.archdev.restapi.models.{ UserEntityUpdate, UserEntity }
 
-import scala.collection.{ immutable, mutable }
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 object UsersService extends UsersService
 
-trait UsersService {
+trait UsersService extends UserEntityTable {
 
-  val users = mutable.Set(
-    UserEntity(Some(1), "Arhelmus", "password"),
-    UserEntity(Some(2), "Tetsu", "password")
-  )
+  import driver.api._
 
-  def getUsers(): immutable.Set[UserEntity] = users.toSet
+  def getUsers(): Future[Seq[UserEntity]] = db.run(users.result)
 
-  def getUserById(id: Long): Option[UserEntity] = users.find(_.id.get == id)
+  def getUserById(id: Long): Future[Option[UserEntity]] = db.run(users.filter(_.id === id).result.headOption)
 
-  def getUserByLogin(login: String): Option[UserEntity] = users.find(_.username == login)
+  def getUserByLogin(login: String): Future[Option[UserEntity]] = db.run(users.filter(_.username === login).result.headOption)
 
-  def createUser(user: UserEntity): UserEntity = {
-    val newUser = user.copy(id = Some(users.maxBy(_.id.get).id.get + 1))
-    users += newUser
-    newUser
+  def createUser(user: UserEntity): Future[UserEntity] = db.run(users returning users += user)
+
+  def updateUser(id: Long, userUpdate: UserEntityUpdate): Future[Option[UserEntity]] = getUserById(id).flatMap {
+    case Some(user) =>
+      val updatedUser = userUpdate.merge(user)
+      db.run(users.filter(_.id === id).update(updatedUser)).map(_ => Some(updatedUser))
+    case None => Future.successful(None)
   }
 
-  def updateUser(id: Long, userUpdate: UserEntityUpdate): UserEntity = {
-    val oldUser = users.find(_.id.get == id).get
-    val newUser = userUpdate.merge(oldUser)
-    users -= oldUser
-    users += newUser
-    newUser
-  }
-
-  def deleteUser(id: Long): Boolean = {
-    users -= users.find(_.id.get == id).get
-    true
-  }
+  def deleteUser(id: Long): Future[Int] = db.run(users.filter(_.id === id).delete)
 
 }
