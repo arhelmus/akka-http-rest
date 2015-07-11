@@ -46,7 +46,9 @@ trait UsersServiceRoute extends UsersService with BaseService with SecurityDirec
               }
             } ~
             delete {
-              complete(NoContent -> deleteUser(id).map(_.toJson))
+              onSuccess(deleteUser(id)) { ignored =>
+                complete(NoContent)
+              }
             }
         }
       }
