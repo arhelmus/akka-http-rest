@@ -4,7 +4,7 @@ scala:
 addons:
   postgresql: '9.3'
 before_script:
-- psql -c 'create database akka_http_rest_test;' -U postgres
+- psql -c 'create database "akka-http-rest-test";' -U postgres
 script: sbt test
 deploy:
   provider: heroku
