@@ -1,7 +1,8 @@
 package me.archdev.restapi.http.routes
 
 import akka.http.scaladsl.server.Directives._
-import me.archdev.restapi.http.{ SecurityDirectives, BaseService }
+import me.archdev.restapi.http.{SecurityDirectives, BaseService}
+import me.archdev.restapi.models.UserEntity
 import me.archdev.restapi.services.AuthService
 import spray.json._
 
@@ -20,7 +21,16 @@ trait AuthServiceRoute extends AuthService with BaseService with SecurityDirecti
           }
         }
       }
-    }
+    } ~
+      path("signUp") {
+        pathEndOrSingleSlash {
+          post {
+            entity(as[UserEntity]) { userEntity =>
+              complete(signUp(userEntity).map(_.toJson))
+            }
+          }
+        }
+      }
   }
 
 }

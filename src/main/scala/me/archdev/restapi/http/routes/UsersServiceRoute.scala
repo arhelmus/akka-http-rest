@@ -19,12 +19,7 @@ trait UsersServiceRoute extends UsersService with BaseService with SecurityDirec
     pathEndOrSingleSlash {
       get {
         complete(getUsers().map(_.toJson))
-      } ~
-        post {
-          entity(as[UserEntity]) { userEntity =>
-            complete(Created -> createUser(userEntity).map(_.toJson))
-          }
-        }
+      }
     } ~
       pathPrefix("me") {
         pathEndOrSingleSlash {
