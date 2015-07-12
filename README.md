@@ -23,6 +23,12 @@ Example contains complete REST service for entity interaction.
 * sbt ([http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html));
 * PostgreSQL server
 
+## Activator 
+
+You can get this example through [Activator](https://typesafe.com/activator).
+For more information please use following url that explains how to get this template on your computer 
+step-by-step: [https://www.typesafe.com/activator/template/akka-http-rest](https://www.typesafe.com/activator/template/akka-http-rest)
+
 ## Configuration
 * Create database in PostgresSQL 
 * Set database settings on application config or set enviroment variables
