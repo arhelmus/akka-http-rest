@@ -3,7 +3,7 @@ package me.archdev.restapi
 import akka.actor.ActorSystem
 import akka.event.{ Logging, LoggingAdapter }
 import akka.http.scaladsl.Http
-import akka.stream.ActorFlowMaterializer
+import akka.stream.ActorMaterializer
 
 import me.archdev.restapi.http.HttpService
 import me.archdev.restapi.utils.{ Migrations, Config }
@@ -15,7 +15,7 @@ object Main extends App with Config with HttpService with Migrations {
 
   override protected implicit val executor: ExecutionContext = system.dispatcher
   override protected val log: LoggingAdapter = Logging(system, getClass)
-  override protected implicit val materializer: ActorFlowMaterializer = ActorFlowMaterializer()
+  override protected implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   migrate()
 

@@ -2,12 +2,12 @@ package me.archdev.restapi.http.routes
 
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
-import me.archdev.restapi.http.{ SecurityDirectives, BaseService }
+import me.archdev.restapi.http.SecurityDirectives
 import me.archdev.restapi.models.UserEntity
 import me.archdev.restapi.services.AuthService
 import spray.json._
 
-trait AuthServiceRoute extends AuthService with BaseService with SecurityDirectives {
+trait AuthServiceRoute extends AuthService with BaseServiceRoute with SecurityDirectives {
 
   import StatusCodes._
 

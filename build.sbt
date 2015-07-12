@@ -8,7 +8,7 @@ scalacOptions := Seq("-unchecked", "-feature", "-deprecation", "-encoding", "utf
 
 libraryDependencies ++= {
   val scalazV          = "7.2.0-M1"
-  val akkaStreamV      = "1.0-RC3"
+  val akkaStreamV      = "1.0-RC4"
   val scalaTestV       = "3.0.0-M1"
   val scalaMockV       = "3.2.2"
   val scalazScalaTestV = "0.2.3"
