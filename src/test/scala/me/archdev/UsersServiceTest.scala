@@ -8,7 +8,7 @@ import org.scalatest.concurrent.ScalaFutures
 import spray.json._
 import akka.http.scaladsl.model.StatusCodes._
 
-class UsersServiceTest extends BaseServiceTest with UsersServiceRoute with ScalaFutures {
+class UsersServiceTest extends BaseServiceTest with ScalaFutures {
   "Users service" should {
     "retrieve users list" in {
       Get("/users") ~> usersRoute ~> check {

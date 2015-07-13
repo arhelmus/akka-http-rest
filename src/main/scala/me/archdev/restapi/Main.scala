@@ -6,18 +6,16 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 
 import me.archdev.restapi.http.HttpService
-import me.archdev.restapi.utils.{ Migrations, Config }
+import me.archdev.restapi.utils.Config
 
 import scala.concurrent.ExecutionContext
 
-object Main extends App with Config with HttpService with Migrations {
+object Main extends App with Config with HttpService {
   private implicit val system = ActorSystem()
 
   override protected implicit val executor: ExecutionContext = system.dispatcher
   override protected val log: LoggingAdapter = Logging(system, getClass)
   override protected implicit val materializer: ActorMaterializer = ActorMaterializer()
-
-  migrate()
 
   Http().bindAndHandle(routes, httpInterface, httpPort)
 }

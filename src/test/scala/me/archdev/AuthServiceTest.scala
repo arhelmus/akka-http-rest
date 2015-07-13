@@ -5,7 +5,7 @@ import me.archdev.restapi.http.routes.AuthServiceRoute
 import me.archdev.restapi.models.{ TokenEntity, UserEntity }
 import spray.json._
 
-class AuthServiceTest extends BaseServiceTest with AuthServiceRoute {
+class AuthServiceTest extends BaseServiceTest {
   val newUser = UserEntity(username = "NewUser", password = "test")
   var signUpToken: Option[TokenEntity] = None
   var signInToken: Option[TokenEntity] = None

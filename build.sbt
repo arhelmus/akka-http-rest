@@ -1,3 +1,4 @@
+import com.typesafe.config._
 import scalariform.formatter.preferences._
 
 name          := "akka-http-rest"
@@ -50,3 +51,9 @@ initialCommands := """|import scalaz._
                       |import scala.concurrent.duration._""".stripMargin
 
 parallelExecution in Test := false
+
+seq(flywaySettings: _*)
+val applicationConfig = ConfigFactory.parseFile(new File("src/main/resources/application.conf")).resolve()
+flywayUrl := applicationConfig.getString("database.url")
+flywayUser := applicationConfig.getString("database.user")
+flywayPassword := applicationConfig.getString("database.password")
