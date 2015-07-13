@@ -23,6 +23,7 @@ libraryDependencies ++= {
     "org.slf4j"          %  "slf4j-nop"                            % "1.6.4",
     "org.postgresql"     %  "postgresql"                           % "9.4-1201-jdbc41",
     "org.mindrot"        %  "jbcrypt"                              % "0.3m",
+    "org.flywaydb"       %  "flyway-core"                          % "3.2.1",
     "org.scalatest"      %% "scalatest"                            % scalaTestV       % "it,test",
     "org.scalamock"      %% "scalamock-scalatest-support"          % scalaMockV       % "it,test",
     "org.scalaz"         %% "scalaz-scalacheck-binding"            % scalazV          % "it,test",
@@ -51,9 +52,3 @@ initialCommands := """|import scalaz._
                       |import scala.concurrent.duration._""".stripMargin
 
 parallelExecution in Test := false
-
-seq(flywaySettings: _*)
-val applicationConfig = ConfigFactory.parseFile(new File("src/main/resources/application.conf")).resolve()
-flywayUrl := applicationConfig.getString("database.url")
-flywayUser := applicationConfig.getString("database.user")
-flywayPassword := applicationConfig.getString("database.password")
