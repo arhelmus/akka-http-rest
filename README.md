@@ -13,11 +13,6 @@ Example contains complete REST service for entity interaction.
 * Implemented authentication by token directive
 * Test coverage with *ScalaTest*
 
-### TODO:
-* Add database evolution plugin (flyway or liquibase)
-* Parallelize tests
-
-
 ## Requirements
 * JDK 7+ (e.g. [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html));
 * sbt ([http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html));
@@ -32,6 +27,7 @@ step-by-step: [https://www.typesafe.com/activator/template/akka-http-rest](https
 ## Configuration
 * Create database in PostgresSQL 
 * Set database settings on application config or set enviroment variables
+* Create database schema with flyway migrations
 
 ### Changing application config
 There are two config files. Application config `src/main/resources/application.conf` and test config `src/test/resources/application.conf`.
@@ -40,6 +36,14 @@ There are two config files. Application config `src/main/resources/application.c
 - `PSQL_URL` || `PSQL_TEST_URL` - database url by scheme `jdbc:postgresql://host:port/database-name`
 - `PSQL_USER` || `PSQL_TEST_USER` - database user
 - `PSQL_PASSWORD` || `PSQL_TEST_PASSWORD` - database password
+
+### Flyway migration
+To create database schema, run:
+```
+sbt flywayMigrate
+```
+
+This command will execute sql files located in `resources/db/migration`. You can read more in Flyway [documentation](http://flywaydb.org/documentation/sbt/).
 
 ## Run application
 To run application, call:
