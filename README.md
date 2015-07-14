@@ -10,6 +10,7 @@ Example contains complete REST service for entity interaction.
 ### Features:
 * CRUD operations
 * Entity partial updates
+* CORS support
 * Implemented authentication by token directive
 * Test coverage with *ScalaTest*
 * Migrations with *FlyWay*
