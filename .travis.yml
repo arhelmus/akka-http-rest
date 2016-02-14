@@ -9,4 +9,4 @@ script: sbt test
 deploy:
   provider: heroku
   api_key:
-    secure: $HEROKU_SECRET_KEY
+    secure: {{HEROKU_SECRET_KEY}}
