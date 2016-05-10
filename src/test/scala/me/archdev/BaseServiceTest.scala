@@ -1,20 +1,18 @@
 package me.archdev
 
-import me.archdev.restapi.http.HttpService
-import me.archdev.restapi.models.{ TokenEntity, UserEntity }
-import me.archdev.restapi.utils.Migration
+import akka.event.{LoggingAdapter, NoLogging}
+import akka.http.scaladsl.testkit.ScalatestRouteTest
 import org.scalatest._
 
-import akka.event.{ NoLogging, LoggingAdapter }
-import akka.http.scaladsl.testkit.ScalatestRouteTest
+import me.archdev.restapi.http.HttpService
+import me.archdev.restapi.models.{TokenEntity, UserEntity}
+import me.archdev.restapi.utils.FlywayService
+import me.archdev.utils.InMemoryPostgresStorage._
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest with HttpService with Migration {
-  protected val log: LoggingAdapter = NoLogging
-
-  import driver.api._
+trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest with HttpService {
 
   val testUsers = Seq(
     UserEntity(Some(1), "Arhelmus", "test"),
@@ -28,7 +26,16 @@ trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest wit
     TokenEntity(userId = Some(3))
   )
 
-  reloadSchema()
-  Await.result(db.run(users ++= testUsers), 10.seconds)
-  Await.result(db.run(tokens ++= testTokens), 10.seconds)
+  protected val log: LoggingAdapter = NoLogging
+  private val flywayService = new FlywayService(jdbcUrl, dbUser, dbPassword)
+  dbProcess.getProcessId
+  flywayService.dropDatabase.migrateDatabaseSchema
+  provisionTestData
+
+  private def provisionTestData = {
+    import driver.api._
+    Await.result(db.run(users ++= testUsers), 10.seconds)
+    Await.result(db.run(tokens ++= testTokens), 10.seconds)
+  }
+
 }

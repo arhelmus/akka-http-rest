@@ -6,18 +6,19 @@ import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 
 import me.archdev.restapi.http.HttpService
-import me.archdev.restapi.utils.{ Migration, Config }
+import me.archdev.restapi.utils.{ FlywayService, Config }
 
 import scala.concurrent.ExecutionContext
 
-object Main extends App with Config with HttpService with Migration {
+object Main extends App with Config with HttpService {
   private implicit val system = ActorSystem()
 
   override protected implicit val executor: ExecutionContext = system.dispatcher
   override protected val log: LoggingAdapter = Logging(system, getClass)
   override protected implicit val materializer: ActorMaterializer = ActorMaterializer()
 
-  migrate()
+  val flywayService = new FlywayService(jdbcUrl, dbUser, dbPassword)
+  flywayService.migrateDatabaseSchema
 
-  Http().bindAndHandle(routes, httpInterface, httpPort)
+  Http().bindAndHandle(routes, httpHost, httpPort)
 }

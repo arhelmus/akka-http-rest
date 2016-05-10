@@ -11,6 +11,7 @@ class AuthServiceTest extends BaseServiceTest {
   var signInToken: Option[TokenEntity] = None
 
   "Auth service" should {
+
     "register users and retrieve token" in {
       val requestEntity = HttpEntity(MediaTypes.`application/json`, newUser.toJson.toString())
       Post("/auth/signUp", requestEntity) ~> authRoute ~> check {
@@ -20,7 +21,10 @@ class AuthServiceTest extends BaseServiceTest {
     }
 
     "authorize users by login and password and retrieve token" in {
-      val requestEntity = HttpEntity(MediaTypes.`application/json`, JsObject("login" -> JsString(newUser.username), "password" -> JsString(newUser.password)).toString())
+      val requestEntity = HttpEntity(
+        MediaTypes.`application/json`,
+        JsObject("login" -> JsString(newUser.username), "password" -> JsString(newUser.password)).toString()
+      )
       Post("/auth/signIn", requestEntity) ~> authRoute ~> check {
         signInToken = Some(tokenFormat.read(responseAs[JsValue]))
       }
@@ -29,6 +33,7 @@ class AuthServiceTest extends BaseServiceTest {
     "retrieve same tokens during registration and authorization" in {
       signUpToken should be(signInToken)
     }
+
   }
 
 }
