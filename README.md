@@ -76,6 +76,8 @@ Application deployed on heroku and can be accessed by URL [http://akka-http-rest
 
 You can see documentation for this example on [Apiary](http://docs.akkahttprest.apiary.io).
 
+## Need more explanation?
+Great [blog article](http://www.bbartosz.com/blog/2015/12/14/akka-http-rest-api/) about how it works, thanks [@BBartosz](https://twitter.com/BBartosz91)!
 
 ## Copyright
 
