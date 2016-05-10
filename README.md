@@ -36,9 +36,9 @@ step-by-step: [https://www.typesafe.com/activator/template/akka-http-rest](https
 There are two config files. Application config `src/main/resources/application.conf` and test config `src/test/resources/application.conf`.
 
 ### Enviroment variables
-- `PSQL_URL` || `PSQL_TEST_URL` - database url by scheme `jdbc:postgresql://host:port/database-name`
-- `PSQL_USER` || `PSQL_TEST_USER` - database user
-- `PSQL_PASSWORD` || `PSQL_TEST_PASSWORD` - database password
+- `PSQL_URL` - database url by scheme `jdbc:postgresql://host:port/database-name`
+- `PSQL_USER` - database user
+- `PSQL_PASSWORD` - database password
 
 ## Run application
 To run application, call:
