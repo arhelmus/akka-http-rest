@@ -3,19 +3,23 @@ package me.archdev.restapi.http.routes
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatchers.IntNumber
-
+import de.heikoseeberger.akkahttpcirce.CirceSupport
 import me.archdev.restapi.http.SecurityDirectives
 import me.archdev.restapi.models.UserEntityUpdate
-import me.archdev.restapi.services.UsersService
-
+import me.archdev.restapi.services.{AuthService, UsersService}
 import io.circe.generic.auto._
 import io.circe.syntax._
 
-trait UsersServiceRoute extends UsersService with BaseServiceRoute with SecurityDirectives {
+import scala.concurrent.ExecutionContext
+
+class UsersServiceRoute(val authService: AuthService,
+                        usersService: UsersService
+                       )(implicit executionContext: ExecutionContext) extends CirceSupport with SecurityDirectives {
 
   import StatusCodes._
+  import usersService._
 
-  val usersRoute = pathPrefix("users") {
+  val route = pathPrefix("users") {
     pathEndOrSingleSlash {
       get {
         complete(getUsers().map(_.asJson))

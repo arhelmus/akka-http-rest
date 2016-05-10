@@ -14,11 +14,13 @@ trait SecurityDirectives {
 
   def authenticate: Directive1[UserEntity] = {
     headerValueByName("Token").flatMap { token =>
-      onSuccess(AuthService.authenticate(token)).flatMap {
+      onSuccess(authService.authenticate(token)).flatMap {
         case Some(user) => provide(user)
         case None       => reject
       }
     }
   }
+
+  protected val authService: AuthService
 
 }

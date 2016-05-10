@@ -17,7 +17,7 @@ class AuthServiceTest extends BaseServiceTest {
 
     "register users and retrieve token" in {
       val requestEntity = HttpEntity(MediaTypes.`application/json`, newUser.asJson.noSpaces)
-      Post("/auth/signUp", requestEntity) ~> authRoute ~> check {
+      Post("/auth/signUp", requestEntity) ~> httpService.authRouter.route ~> check {
         response.status should be(StatusCodes.Created)
         signUpToken = Try(responseAs[TokenEntity]).toOption
       }
@@ -28,7 +28,7 @@ class AuthServiceTest extends BaseServiceTest {
         MediaTypes.`application/json`,
         s"""{"login": "${newUser.username}", "password": "${newUser.password}"}"""
       )
-      Post("/auth/signIn", requestEntity) ~> authRoute ~> check {
+      Post("/auth/signIn", requestEntity) ~> httpService.authRouter.route ~> check {
         signInToken = Try(responseAs[TokenEntity]).toOption
       }
     }

@@ -11,15 +11,19 @@ import io.circe.generic.auto._
 import io.circe.syntax._
 
 class UsersServiceTest extends BaseServiceTest with ScalaFutures {
+
+  import usersService._
+
   "Users service" should {
+
     "retrieve users list" in {
-      Get("/users") ~> usersRoute ~> check {
+      Get("/users") ~> httpService.usersRouter.route ~> check {
         responseAs[Json] should be(testUsers.asJson)
       }
     }
 
     "retrieve user by id" in {
-      Get("/users/1") ~> usersRoute ~> check {
+      Get("/users/1") ~> httpService.usersRouter.route ~> check {
         responseAs[Json] should be(testUsers.head.asJson)
       }
     }
@@ -27,7 +31,7 @@ class UsersServiceTest extends BaseServiceTest with ScalaFutures {
     "update user by id and retrieve it" in {
       val newUsername = "UpdatedUsername"
       val requestEntity = HttpEntity(MediaTypes.`application/json`, s"""{"username": "$newUsername"}""")
-      Post("/users/1", requestEntity) ~> usersRoute ~> check {
+      Post("/users/1", requestEntity) ~> httpService.usersRouter.route ~> check {
         responseAs[Json] should be(testUsers.head.copy(username = newUsername).asJson)
         whenReady(getUserById(1)) { result =>
           result.get.username should be(newUsername)
@@ -36,7 +40,7 @@ class UsersServiceTest extends BaseServiceTest with ScalaFutures {
     }
 
     "delete user" in {
-      Delete("/users/3") ~> usersRoute ~> check {
+      Delete("/users/3") ~> httpService.usersRouter.route ~> check {
         response.status should be(NoContent)
         whenReady(getUserById(3)) { result =>
           result should be(None: Option[UserEntity])
@@ -45,7 +49,7 @@ class UsersServiceTest extends BaseServiceTest with ScalaFutures {
     }
 
     "retrieve currently logged user" in {
-      Get("/users/me") ~> addHeader("Token", testTokens.find(_.userId.contains(2)).get.token) ~> usersRoute ~> check {
+      Get("/users/me") ~> addHeader("Token", testTokens.find(_.userId.contains(2)).get.token) ~> httpService.usersRouter.route ~> check {
         responseAs[Json] should be(testUsers.find(_.id.contains(2)).get.asJson)
       }
     }
@@ -53,13 +57,14 @@ class UsersServiceTest extends BaseServiceTest with ScalaFutures {
     "update currently logged user" in {
       val newUsername = "MeUpdatedUsername"
       val requestEntity = HttpEntity(MediaTypes.`application/json`, s"""{"username": "$newUsername"}""")
-      Post("/users/me", requestEntity) ~> addHeader("Token", testTokens.find(_.userId.contains(2)).get.token) ~> usersRoute ~> check {
+      Post("/users/me", requestEntity) ~> addHeader("Token", testTokens.find(_.userId.contains(2)).get.token) ~> httpService.usersRouter.route ~> check {
         responseAs[Json] should be(testUsers.find(_.id.contains(2)).get.copy(username = newUsername).asJson)
         whenReady(getUserById(2)) { result =>
           result.get.username should be(newUsername)
         }
       }
     }
+
   }
 
 }

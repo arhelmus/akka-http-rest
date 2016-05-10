@@ -1,11 +1,12 @@
 package me.archdev.restapi.models.db
 
 import me.archdev.restapi.models.UserEntity
-import me.archdev.restapi.utils.DatabaseConfig
+import me.archdev.restapi.utils.DatabaseService
 
-trait UserEntityTable extends DatabaseConfig {
+trait UserEntityTable {
 
-  import driver.api._
+  protected val databaseService: DatabaseService
+  import databaseService.driver.api._
 
   class Users(tag: Tag) extends Table[UserEntity](tag, "users") {
     def id = column[Option[Long]]("id", O.PrimaryKey, O.AutoInc)
@@ -15,6 +16,6 @@ trait UserEntityTable extends DatabaseConfig {
     def * = (id, username, password) <> ((UserEntity.apply _).tupled, UserEntity.unapply)
   }
 
-  protected val users = TableQuery[Users]
+  val users = TableQuery[Users]
 
 }

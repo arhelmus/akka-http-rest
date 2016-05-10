@@ -1,17 +1,16 @@
 package me.archdev.restapi.services
 
 import me.archdev.restapi.models.db.TokenEntityTable
-import me.archdev.restapi.models.{ TokenEntity, UserEntity }
+import me.archdev.restapi.models.{TokenEntity, UserEntity}
+import me.archdev.restapi.utils.DatabaseService
 import org.mindrot.jbcrypt.BCrypt
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ExecutionContext, Future}
 
-object AuthService extends AuthService
+class AuthService(val databaseService: DatabaseService)(usersService: UsersService)(implicit executionContext: ExecutionContext) extends TokenEntityTable {
 
-trait AuthService extends TokenEntityTable {
-
-  import driver.api._
+  import databaseService._
+  import databaseService.driver.api._
 
   def signIn(login: String, password: String): Future[Option[TokenEntity]] = {
     db.run(users.filter(u => u.username === login).result).flatMap { users =>
@@ -26,7 +25,7 @@ trait AuthService extends TokenEntityTable {
   }
 
   def signUp(newUser: UserEntity): Future[TokenEntity] = {
-    UsersService.createUser(newUser).flatMap(user => createToken(user))
+    usersService.createUser(newUser).flatMap(user => createToken(user))
   }
 
   def authenticate(token: String): Future[Option[UserEntity]] =
