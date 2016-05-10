@@ -1,9 +1,12 @@
 package me.archdev
 
-import akka.http.scaladsl.model.{ StatusCodes, MediaTypes, HttpEntity }
-import me.archdev.restapi.http.routes.AuthServiceRoute
-import me.archdev.restapi.models.{ TokenEntity, UserEntity }
-import spray.json._
+import akka.http.scaladsl.model.{HttpEntity, MediaTypes, StatusCodes}
+import me.archdev.restapi.models.{TokenEntity, UserEntity}
+
+import io.circe.generic.auto._
+import io.circe.syntax._
+
+import scala.util.Try
 
 class AuthServiceTest extends BaseServiceTest {
   val newUser = UserEntity(username = "NewUser", password = "test")
@@ -13,20 +16,20 @@ class AuthServiceTest extends BaseServiceTest {
   "Auth service" should {
 
     "register users and retrieve token" in {
-      val requestEntity = HttpEntity(MediaTypes.`application/json`, newUser.toJson.toString())
+      val requestEntity = HttpEntity(MediaTypes.`application/json`, newUser.asJson.noSpaces)
       Post("/auth/signUp", requestEntity) ~> authRoute ~> check {
         response.status should be(StatusCodes.Created)
-        signUpToken = Some(tokenFormat.read(responseAs[JsValue]))
+        signUpToken = Try(responseAs[TokenEntity]).toOption
       }
     }
 
     "authorize users by login and password and retrieve token" in {
       val requestEntity = HttpEntity(
         MediaTypes.`application/json`,
-        JsObject("login" -> JsString(newUser.username), "password" -> JsString(newUser.password)).toString()
+        s"""{"login": "${newUser.username}", "password": "${newUser.password}"}"""
       )
       Post("/auth/signIn", requestEntity) ~> authRoute ~> check {
-        signInToken = Some(tokenFormat.read(responseAs[JsValue]))
+        signInToken = Try(responseAs[TokenEntity]).toOption
       }
     }
 
