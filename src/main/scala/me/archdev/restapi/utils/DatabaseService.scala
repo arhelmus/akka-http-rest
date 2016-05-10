@@ -1,9 +1,17 @@
 package me.archdev.restapi.utils
 
-class DatabaseService(jdbcUrl: String, dbUser: String, dbPassword: String) {
-  val driver = slick.driver.PostgresDriver
+import com.zaxxer.hikari.{HikariConfig, HikariDataSource}
 
+class DatabaseService(jdbcUrl: String, dbUser: String, dbPassword: String) {
+  private val hikariConfig = new HikariConfig()
+  hikariConfig.setJdbcUrl(jdbcUrl)
+  hikariConfig.setUsername(dbUser)
+  hikariConfig.setPassword(dbPassword)
+
+  private val dataSource = new HikariDataSource(hikariConfig)
+
+  val driver = slick.driver.PostgresDriver
   import driver.api._
-  val db = Database.forURL(jdbcUrl, dbUser, dbPassword, driver = "org.postgresql.Driver")
+  val db = Database.forDataSource(dataSource)
   db.createSession()
 }

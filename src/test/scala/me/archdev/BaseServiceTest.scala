@@ -15,6 +15,8 @@ import scala.util.Random
 
 trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest with CirceSupport {
 
+  dbProcess.getProcessId
+
   private val databaseService = new DatabaseService(jdbcUrl, dbUser, dbPassword)
 
   val usersService = new UsersService(databaseService)
@@ -33,7 +35,5 @@ trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest wit
     val savedTokens = usersList.map(authService.createToken)
     Await.result(Future.sequence(savedTokens), 10.seconds)
   }
-
-  dbProcess.getProcessId
 
 }
