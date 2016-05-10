@@ -1,6 +1,7 @@
 package me.archdev.utils
 
 import de.flapdoodle.embed.process.runtime.Network._
+import me.archdev.restapi.utils.FlywayService
 import ru.yandex.qatools.embed.postgresql.PostgresStarter
 import ru.yandex.qatools.embed.postgresql.config.AbstractPostgresConfig.{Credentials, Net, Storage, Timeout}
 import ru.yandex.qatools.embed.postgresql.config.PostgresConfig
@@ -21,7 +22,10 @@ object InMemoryPostgresStorage {
       new Credentials(dbUser, dbPassword)
     )
     val psqlInstance = PostgresStarter.getDefaultInstance
+    val flywayService = new FlywayService(jdbcUrl, dbUser, dbPassword)
 
-    psqlInstance.prepare(psqlConfig).start()
+    val process = psqlInstance.prepare(psqlConfig).start()
+    flywayService.dropDatabase.migrateDatabaseSchema
+    process
   }
 }

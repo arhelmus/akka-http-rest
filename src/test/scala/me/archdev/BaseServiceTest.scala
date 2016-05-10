@@ -3,19 +3,18 @@ package me.archdev
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import de.heikoseeberger.akkahttpcirce.CirceSupport
 import me.archdev.restapi.http.HttpService
-import me.archdev.restapi.models.{TokenEntity, UserEntity}
+import me.archdev.restapi.models.UserEntity
 import me.archdev.restapi.services.{AuthService, UsersService}
-import me.archdev.restapi.utils.{DatabaseService, FlywayService}
+import me.archdev.restapi.utils.DatabaseService
 import me.archdev.utils.InMemoryPostgresStorage._
 import org.scalatest._
 
-import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
+import scala.concurrent.{Await, Future}
 import scala.util.Random
 
 trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest with CirceSupport {
 
-  private val flywayService = new FlywayService(jdbcUrl, dbUser, dbPassword)
   private val databaseService = new DatabaseService(jdbcUrl, dbUser, dbPassword)
 
   val usersService = new UsersService(databaseService)
@@ -36,6 +35,5 @@ trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest wit
   }
 
   dbProcess.getProcessId
-  flywayService.dropDatabase.migrateDatabaseSchema
 
 }
