@@ -1,10 +1,6 @@
 language: scala
 scala:
-- 2.11.7
-addons:
-  postgresql: '9.3'
-before_script:
-- psql -c 'create database "akka-http-rest-test";' -U postgres
+- 2.11.8
 script: sbt test
 deploy:
   provider: heroku
