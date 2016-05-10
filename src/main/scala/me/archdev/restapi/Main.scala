@@ -11,10 +11,9 @@ import me.archdev.restapi.utils.{Config, DatabaseService, FlywayService}
 import scala.concurrent.ExecutionContext
 
 object Main extends App with Config {
-  private implicit val system = ActorSystem()
-
-  implicit val executor: ExecutionContext = system.dispatcher
-  implicit val log: LoggingAdapter = Logging(system, getClass)
+  implicit val actorSystem = ActorSystem()
+  implicit val executor: ExecutionContext = actorSystem.dispatcher
+  implicit val log: LoggingAdapter = Logging(actorSystem, getClass)
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   val flywayService = new FlywayService(jdbcUrl, dbUser, dbPassword)

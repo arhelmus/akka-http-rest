@@ -3,7 +3,6 @@ package me.archdev.restapi.services
 import me.archdev.restapi.models.db.TokenEntityTable
 import me.archdev.restapi.models.{TokenEntity, UserEntity}
 import me.archdev.restapi.utils.DatabaseService
-import org.mindrot.jbcrypt.BCrypt
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -14,7 +13,7 @@ class AuthService(val databaseService: DatabaseService)(usersService: UsersServi
 
   def signIn(login: String, password: String): Future[Option[TokenEntity]] = {
     db.run(users.filter(u => u.username === login).result).flatMap { users =>
-      users.find(user => BCrypt.checkpw(password, user.password)) match {
+      users.find(user => user.password == password) match {
         case Some(user) => db.run(tokens.filter(_.userId === user.id).result.headOption).flatMap {
           case Some(token) => Future.successful(Some(token))
           case None        => createToken(user).map(token => Some(token))

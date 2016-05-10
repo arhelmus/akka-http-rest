@@ -18,6 +18,6 @@ trait TokenEntityTable extends UserEntityTable {
     def * = (id, userId, token) <> ((TokenEntity.apply _).tupled, TokenEntity.unapply)
   }
 
-  val tokens = TableQuery[Tokens]
+  protected val tokens = TableQuery[Tokens]
 
 }

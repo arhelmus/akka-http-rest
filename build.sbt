@@ -18,7 +18,6 @@ libraryDependencies ++= {
     "org.flywaydb" % "flyway-core" % "3.2.1",
 
     "org.slf4j" % "slf4j-nop" % "1.6.4",
-    "org.mindrot" % "jbcrypt" % "0.3m",
 
     "io.circe" %% "circe-core" % circeV,
     "io.circe" %% "circe-generic" % circeV,
@@ -36,5 +35,3 @@ enablePlugins(DockerPlugin)
 
 dockerExposedPorts := Seq(9000)
 dockerEntrypoint := Seq("bin/%s" format executableScriptName.value, "-Dconfig.resource=docker.conf")
-
-parallelExecution in Test := false
