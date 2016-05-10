@@ -15,6 +15,8 @@ Example contains complete REST service for entity interaction.
 * Test coverage with *ScalaTest*
 * Migrations with *FlyWay*
 * Ready for *Docker*
+* Testing with inmemory postgres instance that launch automaticly
+* *HikaryCP* as connection pool
 
 ## Requirements
 * JDK 7+ (e.g. [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html));
