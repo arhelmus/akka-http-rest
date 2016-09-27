@@ -4,10 +4,10 @@ version := "1.0.0"
 scalaVersion := "2.11.8"
 
 libraryDependencies ++= {
-  val akkaV = "2.4.4"
-  val scalaTestV = "3.0.0-M15"
+  val akkaV = "2.4.10"
+  val scalaTestV = "3.0.0"
   val slickVersion = "3.1.1"
-  val circeV = "0.4.1"
+  val circeV = "0.5.1"
   Seq(
     "com.typesafe.akka" %% "akka-http-core" % akkaV,
     "com.typesafe.akka" %% "akka-http-experimental" % akkaV,
@@ -26,7 +26,7 @@ libraryDependencies ++= {
 
     "org.scalatest" %% "scalatest" % scalaTestV % "test",
     "com.typesafe.akka" %% "akka-http-testkit" % akkaV % "test",
-    "ru.yandex.qatools.embed" % "postgresql-embedded" % "1.13" % "test"
+    "ru.yandex.qatools.embed" % "postgresql-embedded" % "1.15" % "test"
   )
 }
 
