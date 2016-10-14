@@ -25,7 +25,8 @@ object InMemoryPostgresStorage {
     val flywayService = new FlywayService(jdbcUrl, dbUser, dbPassword)
 
     val process = psqlInstance.prepare(psqlConfig).start()
-    flywayService.dropDatabase.migrateDatabaseSchema
+    flywayService.dropDatabase()
+    flywayService.migrateDatabaseSchema()
     process
   }
 }
