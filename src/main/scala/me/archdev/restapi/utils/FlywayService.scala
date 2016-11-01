@@ -4,17 +4,10 @@ import org.flywaydb.core.Flyway
 
 class FlywayService(jdbcUrl: String, dbUser: String, dbPassword: String) {
 
-  private val flyway = new Flyway()
+  private[this] val flyway = new Flyway()
   flyway.setDataSource(jdbcUrl, dbUser, dbPassword)
 
-  def migrateDatabaseSchema = {
-    flyway.migrate()
-    this
-  }
+  def migrateDatabaseSchema() : Unit = flyway.migrate()
 
-  def dropDatabase = {
-    flyway.clean()
-    this
-  }
-
+  def dropDatabase() : Unit = flyway.clean()
 }
