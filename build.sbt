@@ -1,17 +1,17 @@
 name := "akka-http-rest"
 organization := "me.archdev"
 version := "1.0.0"
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.0"
 
 libraryDependencies ++= {
-  val akkaV = "2.4.11"
-  val scalaTestV = "3.0.0"
-  val slickVersion = "3.1.1"
-  val circeV = "0.5.1"
+  val akkaV = "10.0.0"
+  val scalaTestV = "3.0.1"
+  val slickVersion = "3.2.0-M2"
+  val circeV = "0.6.1"
   Seq(
     "com.typesafe.akka" %% "akka-http-core" % akkaV,
-    "com.typesafe.akka" %% "akka-http-experimental" % akkaV,
-    "de.heikoseeberger" %% "akka-http-circe" % "1.6.0",
+    "com.typesafe.akka" %% "akka-http" % akkaV,
+    "de.heikoseeberger" %% "akka-http-circe" % "1.11.0",
 
     "com.typesafe.slick" %% "slick" % slickVersion,
     "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
