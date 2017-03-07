@@ -4,7 +4,7 @@ version := "1.0.0"
 scalaVersion := "2.12.1"
 
 libraryDependencies ++= {
-  val akkaV = "10.0.0"
+  val akkaV = "10.0.4"
   val scalaTestV = "3.0.1"
   val slickVersion = "3.2.0-M2"
   val circeV = "0.6.1"
