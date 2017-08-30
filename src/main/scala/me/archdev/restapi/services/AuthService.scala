@@ -9,7 +9,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class AuthService(val databaseService: DatabaseService)(usersService: UsersService)(implicit executionContext: ExecutionContext) extends TokenEntityTable {
 
   import databaseService._
-  import databaseService.driver.api._
+  import databaseService.profile.api._
 
   def signIn(login: String, password: String): Future[Option[TokenEntity]] = {
     db.run(users.filter(u => u.username === login).result).flatMap { users =>

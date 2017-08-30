@@ -6,7 +6,7 @@ import me.archdev.restapi.utils.DatabaseService
 trait UserEntityTable {
 
   protected val databaseService: DatabaseService
-  import databaseService.driver.api._
+  import databaseService.profile.api._
 
   class Users(tag: Tag) extends Table[UserEntity](tag, "users") {
     def id = column[Option[Long]]("id", O.PrimaryKey, O.AutoInc)
