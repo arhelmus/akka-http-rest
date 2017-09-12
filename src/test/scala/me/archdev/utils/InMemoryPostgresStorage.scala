@@ -17,7 +17,7 @@ object InMemoryPostgresStorage {
 
   lazy val dbProcess = {
     val psqlConfig = new PostgresConfig(
-      Version.V9_5_0, new Net(dbHost, dbPort),
+      Version.V9_6_3, new Net(dbHost, dbPort),
       new Storage(dbName), new Timeout(),
       new Credentials(dbUser, dbPassword)
     )

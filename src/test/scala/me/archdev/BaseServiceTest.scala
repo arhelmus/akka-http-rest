@@ -1,7 +1,7 @@
 package me.archdev
 
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import de.heikoseeberger.akkahttpcirce.CirceSupport
+import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 import me.archdev.restapi.http.HttpService
 import me.archdev.restapi.models.UserEntity
 import me.archdev.restapi.services.{AuthService, UsersService}
@@ -13,7 +13,7 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.Random
 
-trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest with CirceSupport {
+trait BaseServiceTest extends WordSpec with Matchers with ScalatestRouteTest with FailFastCirceSupport {
 
   dbProcess.getProcessId
 

@@ -1,24 +1,24 @@
 name := "akka-http-rest"
 organization := "me.archdev"
 version := "1.0.0"
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.3"
 
 libraryDependencies ++= {
-  val akkaV = "10.0.4"
-  val scalaTestV = "3.0.1"
-  val slickVersion = "3.2.0-M2"
-  val circeV = "0.6.1"
+  val akkaV = "10.0.10"
+  val scalaTestV = "3.0.4"
+  val slickVersion = "3.2.1"
+  val circeV = "0.8.0"
   Seq(
     "com.typesafe.akka" %% "akka-http-core" % akkaV,
     "com.typesafe.akka" %% "akka-http" % akkaV,
-    "de.heikoseeberger" %% "akka-http-circe" % "1.11.0",
+    "de.heikoseeberger" %% "akka-http-circe" % "1.18.0",
 
     "com.typesafe.slick" %% "slick" % slickVersion,
-    "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
-    "org.flywaydb" % "flyway-core" % "3.2.1",
+    "org.postgresql" % "postgresql" % "42.1.4",
+    "org.flywaydb" % "flyway-core" % "4.2.0",
 
-    "com.zaxxer" % "HikariCP" % "2.4.5",
-    "org.slf4j" % "slf4j-nop" % "1.6.4",
+    "com.zaxxer" % "HikariCP" % "2.7.0",
+    "org.slf4j" % "slf4j-nop" % "1.7.25",
 
     "io.circe" %% "circe-core" % circeV,
     "io.circe" %% "circe-generic" % circeV,
@@ -26,7 +26,7 @@ libraryDependencies ++= {
 
     "org.scalatest" %% "scalatest" % scalaTestV % "test",
     "com.typesafe.akka" %% "akka-http-testkit" % akkaV % "test",
-    "ru.yandex.qatools.embed" % "postgresql-embedded" % "1.15" % "test"
+    "ru.yandex.qatools.embed" % "postgresql-embedded" % "2.4" % "test"
   )
 }
 

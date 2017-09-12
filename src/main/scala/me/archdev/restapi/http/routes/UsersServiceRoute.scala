@@ -3,7 +3,7 @@ package me.archdev.restapi.http.routes
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.PathMatchers.IntNumber
-import de.heikoseeberger.akkahttpcirce.CirceSupport
+import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
 import me.archdev.restapi.http.SecurityDirectives
 import me.archdev.restapi.models.UserEntityUpdate
 import me.archdev.restapi.services.{AuthService, UsersService}
@@ -14,7 +14,7 @@ import scala.concurrent.ExecutionContext
 
 class UsersServiceRoute(val authService: AuthService,
                         usersService: UsersService
-                       )(implicit executionContext: ExecutionContext) extends CirceSupport with SecurityDirectives {
+                       )(implicit executionContext: ExecutionContext) extends FailFastCirceSupport with SecurityDirectives {
 
   import StatusCodes._
   import usersService._
