@@ -3,15 +3,13 @@ package me.archdev.restapi.http.routes
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
-import me.archdev.restapi.http.SecurityDirectives
-import me.archdev.restapi.models.UserEntity
-import me.archdev.restapi.services.AuthService
 import io.circe.generic.auto._
 import io.circe.syntax._
+import me.archdev.restapi.core.auth.AuthService
 
 import scala.concurrent.ExecutionContext
 
-class AuthServiceRoute(val authService: AuthService)(implicit executionContext: ExecutionContext) extends FailFastCirceSupport with SecurityDirectives {
+class AuthRoute(authService: AuthService)(implicit executionContext: ExecutionContext) extends FailFastCirceSupport {
 
   import StatusCodes._
   import authService._
@@ -21,7 +19,12 @@ class AuthServiceRoute(val authService: AuthService)(implicit executionContext: 
       pathEndOrSingleSlash {
         post {
           entity(as[LoginPassword]) { loginPassword =>
-            complete(signIn(loginPassword.login, loginPassword.password).map(_.asJson))
+            complete(
+              signIn(loginPassword.login, loginPassword.password).map {
+                case Some(token) => OK -> token.asJson
+                case None => BadRequest -> None.asJson
+              }
+            )
           }
         }
       }
@@ -29,8 +32,8 @@ class AuthServiceRoute(val authService: AuthService)(implicit executionContext: 
       path("signUp") {
         pathEndOrSingleSlash {
           post {
-            entity(as[UserEntity]) { userEntity =>
-              complete(Created -> signUp(userEntity).map(_.asJson))
+            entity(as[UsernamePasswordEmail]) { userEntity =>
+              complete(Created -> signUp(userEntity.username, userEntity.email, userEntity.password))
             }
           }
         }
@@ -38,5 +41,6 @@ class AuthServiceRoute(val authService: AuthService)(implicit executionContext: 
   }
 
   private case class LoginPassword(login: String, password: String)
+  private case class UsernamePasswordEmail(username: String, email: String, password: String)
 
 }

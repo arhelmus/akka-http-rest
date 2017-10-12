@@ -1,13 +1,14 @@
-package me.archdev.restapi.utils
+package me.archdev.restapi.utils.db
 
 import org.flywaydb.core.Flyway
 
-class FlywayService(jdbcUrl: String, dbUser: String, dbPassword: String) {
+class DatabaseMigrationManager(jdbcUrl: String, dbUser: String, dbPassword: String) {
 
-  private[this] val flyway = new Flyway()
+  private val flyway = new Flyway()
   flyway.setDataSource(jdbcUrl, dbUser, dbPassword)
 
   def migrateDatabaseSchema() : Unit = flyway.migrate()
 
   def dropDatabase() : Unit = flyway.clean()
+
 }

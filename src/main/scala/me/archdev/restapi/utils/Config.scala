@@ -1,16 +1,17 @@
 package me.archdev.restapi.utils
 
-import com.typesafe.config.ConfigFactory
+import pureconfig.loadConfig
 
-trait Config {
-  private val config = ConfigFactory.load()
-  private val httpConfig = config.getConfig("http")
-  private val databaseConfig = config.getConfig("database")
+case class Config(secretKey: String, http: HttpConfig, database: DatabaseConfig)
 
-  val httpHost = httpConfig.getString("interface")
-  val httpPort = httpConfig.getInt("port")
-
-  val jdbcUrl = databaseConfig.getString("url")
-  val dbUser = databaseConfig.getString("user")
-  val dbPassword = databaseConfig.getString("password")
+object Config {
+  def load() =
+    loadConfig[Config] match {
+      case Right(config) => config
+      case Left(error) =>
+        throw new RuntimeException("Cannot read config file, errors:\n" + error.toList.mkString("\n"))
+    }
 }
+
+private[utils] case class HttpConfig(host: String, port: Int)
+private[utils] case class DatabaseConfig(jdbcUrl: String, username: String, password: String)
