@@ -57,6 +57,7 @@ some env variables:
  - `JDBC_URL` - url to your database
  - `JDBC_USER` - database username
  - `JDBC_PASSWORD` - database password
+ 
 After that, just run `sbt run` and enjoy hacking. For better expirience you can use `sbt reStart` that will give you ability to
 restart application without restarting of sbt.
 
