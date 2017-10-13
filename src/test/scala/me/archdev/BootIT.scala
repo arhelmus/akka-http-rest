@@ -12,7 +12,7 @@ class BootIT extends BaseServiceTest {
 
   "Service" should {
 
-    "bind successfully on port and answer on health checks" in {
+    "bind on port successfully and answer on health checks" in {
       awaitForResult(for {
         serverBinding <- Boot.startApplication()
         healthCheckResponse <- sttp.get(uri"http://localhost:9000/healthcheck").send()

@@ -60,9 +60,5 @@ libraryDependencies ++= {
   )
 }
 
-Revolver.settings
 enablePlugins(JavaAppPackaging)
 enablePlugins(DockerPlugin)
-
-dockerExposedPorts := Seq(9000)
-dockerEntrypoint := Seq("bin/%s" format executableScriptName.value, "-Dconfig.resource=docker.conf")
