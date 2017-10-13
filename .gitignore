@@ -15,3 +15,4 @@ project/plugins/project/
 # Scala-IDE specific
 .idea/
 rest.iml
+.DS_Store

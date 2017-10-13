@@ -1,8 +1,12 @@
 language: scala
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
 scala:
-- 2.12.3
+  - 2.12.3
 jdk:
-- oraclejdk8
+  - oraclejdk8
 script: sbt test
 deploy:
   provider: heroku
