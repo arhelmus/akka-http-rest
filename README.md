@@ -26,10 +26,7 @@ Example contains complete REST service for entity interaction.
 This application is fully tested with Unit and IT tests.
 You don't need to launch server locally for development.
 My recommendation is to write a test before changes and work via TDD.
-To ensure that application working properly, you should run it:
-```
-sbt test
-```
+To ensure that application working properly, you should run it: `sbt test`.
 
 ### Structure
 All business logic is located in `core` package, every package inside is related to some domain.
