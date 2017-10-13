@@ -1,0 +1,17 @@
+version: '2'
+services:
+  apiserver:
+    restart: always
+    image: your.image.store:5000/services/akka-http-rest:1.0.0
+    ports:
+      - 80:9000
+    environment:
+      APP_SECRET: "some-secret-value"
+      JDBC_URL: "jdbc:postgres://postgres:5432/postgres"
+      JDBC_USER: "postgres"
+      JDBC_PASSWORD: "database-password"
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "database-password"
