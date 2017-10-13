@@ -8,6 +8,7 @@ libraryDependencies ++= {
   val scalaTestV = "3.0.4"
   val slickVersion = "3.2.1"
   val circeV = "0.8.0"
+  val sttpV = "0.0.20"
   Seq(
     // HTTP server
     "com.typesafe.akka" %% "akka-http" % akkaV,
@@ -44,6 +45,13 @@ libraryDependencies ++= {
 
     // Sugar for serialization and deserialization in akka-http with circe
     "de.heikoseeberger" %% "akka-http-circe" % "1.18.0",
+
+    // Validation library
+    "com.wix" %% "accord-core" % "0.7.1",
+
+    // Http client, used currently only for IT test
+    "com.softwaremill.sttp" %% "core" % sttpV % Test,
+    "com.softwaremill.sttp" %% "akka-http-backend" % sttpV % Test,
 
     "org.scalatest" %% "scalatest" % scalaTestV % Test,
     "com.typesafe.akka" %% "akka-http-testkit" % akkaV % Test,

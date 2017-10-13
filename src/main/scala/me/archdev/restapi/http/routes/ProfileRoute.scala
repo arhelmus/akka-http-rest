@@ -3,7 +3,6 @@ package me.archdev.restapi.http.routes
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
-import io.circe.{Json, JsonObject}
 import io.circe.generic.auto._
 import io.circe.syntax._
 import me.archdev.restapi.core.UserProfileUpdate
@@ -18,8 +17,8 @@ class ProfileRoute(
 )(implicit executionContext: ExecutionContext) extends FailFastCirceSupport {
 
   import SecurityDirectives._
-  import usersService._
   import StatusCodes._
+  import usersService._
 
   val route = pathPrefix("profiles") {
     pathEndOrSingleSlash {
