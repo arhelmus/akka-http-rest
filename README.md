@@ -38,6 +38,10 @@ that means that service MUST NOT implement storaging and queering for the data.
 For storaging there are Storage classes that always have interface with two implementation, production one and
 in-memory one. That's needed to fasten tests of services and make it independent from each other.
 
+### Checking code coverage
+To generate code coverage report, please run: `sbt clean coverage test coverageReport`.
+Then you will have HTML pages with reports in `/target/scala-2.12/scoverage-report`
+
 ### Packaging
 Application packaging implemented via [sbt-native-packager](https://github.com/sbt/sbt-native-packager) plugin.
 Currently in `build.sbt` enabled two types: docker and universal.
