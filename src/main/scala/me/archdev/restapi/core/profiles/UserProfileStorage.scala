@@ -27,7 +27,7 @@ class JdbcUserProfileStorage(
   def getProfile(id: String): Future[Option[UserProfile]] = db.run(profiles.filter(_.id === id).result.headOption)
 
   def saveProfile(profile: UserProfile): Future[UserProfile] =
-    db.run((profiles returning profiles).insertOrUpdate(profile)).map(_ => profile)
+    db.run(profiles.insertOrUpdate(profile)).map(_ => profile)
 
 }
 

@@ -25,7 +25,7 @@ class JdbcAuthDataStorage(
     db.run(auth.filter(d => d.username === login || d.email === login).result.headOption)
 
   override def saveAuthData(authData: AuthData): Future[AuthData] =
-    db.run((auth returning auth).insertOrUpdate(authData)).map(_ => authData)
+    db.run(auth.insertOrUpdate(authData)).map(_ => authData)
 
 }
 
