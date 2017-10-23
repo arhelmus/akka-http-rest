@@ -1,18 +1,18 @@
 name := "akka-http-rest"
 organization := "me.archdev"
 version := "1.0.0"
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 libraryDependencies ++= {
-  val akkaV = "10.0.10"
+  val akkaHttpV = "10.0.10"
   val scalaTestV = "3.0.4"
   val slickVersion = "3.2.1"
   val circeV = "0.8.0"
-  val sttpV = "0.0.20"
+  val sttpV = "1.0.0"
   Seq(
     // HTTP server
-    "com.typesafe.akka" %% "akka-http" % akkaV,
-    "com.typesafe.akka" %% "akka-http-core" % akkaV,
+    "com.typesafe.akka" %% "akka-http" % akkaHttpV,
+    "com.typesafe.akka" %% "akka-http-core" % akkaHttpV,
 
     // Support of CORS requests, version depends on akka-http
     "ch.megard" %% "akka-http-cors" % "0.2.2",
@@ -54,7 +54,7 @@ libraryDependencies ++= {
     "com.softwaremill.sttp" %% "akka-http-backend" % sttpV % Test,
 
     "org.scalatest" %% "scalatest" % scalaTestV % Test,
-    "com.typesafe.akka" %% "akka-http-testkit" % akkaV % Test,
+    "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpV % Test,
     "ru.yandex.qatools.embed" % "postgresql-embedded" % "2.4" % Test,
     "org.mockito" % "mockito-all" % "1.9.5" % Test
   )
