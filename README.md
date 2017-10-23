@@ -45,7 +45,7 @@ Currently in `build.sbt` enabled two types: docker and universal.
 
 **Universal packager**  
 To package application as a universal app, use: `sbt universal:packageBin`.
-Application jar will be generated in `/target/scala-2.12/` folder.
+Application zip archive will be generated in `/target/universal/` folder.
 
 **Docker packager**   
 To package application as docker image, use `sbt docker:publishLocal`.
