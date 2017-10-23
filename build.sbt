@@ -62,3 +62,6 @@ libraryDependencies ++= {
 
 enablePlugins(UniversalPlugin)
 enablePlugins(DockerPlugin)
+
+// Needed for Heroku deployment, can be removed
+enablePlugins(JavaAppPackaging)
