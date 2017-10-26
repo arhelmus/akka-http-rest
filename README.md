@@ -31,7 +31,7 @@ To ensure that application working properly, you should run it: `sbt test`.
 ### Structure
 All business logic is located in `core` package, every package inside is related to some domain.
 Service classes contains high level logic that related to data manipulation,
-that means that service MUST NOT implement storaging and queering for the data.
+that means that service MUST NOT implement storaging and querying for the data.
 For storaging there are Storage classes that always have interface with two implementation, production one and
 in-memory one. That's needed to fasten tests of services and make it independent from each other.
 
