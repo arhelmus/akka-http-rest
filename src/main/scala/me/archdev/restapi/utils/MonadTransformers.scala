@@ -1,6 +1,6 @@
 package me.archdev.restapi.utils
 
-import scala.concurrent.{ExecutionContext, Future, Promise}
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
   * Monad transformers its classes that extends default monad's like Future or Option.
@@ -22,21 +22,13 @@ object MonadTransformers {
           None
       }
 
-    def flatMapT[B](f: A => Future[Option[B]]): Future[Option[B]] = {
-      val resultPromise = Promise[Option[B]]
-
+    def flatMapT[B](f: A => Future[Option[B]]): Future[Option[B]] =
       t.flatMap {
         case Some(data) =>
-          f(data).map(resultPromise.success)
+          f(data)
         case None =>
-          Future.successful()
-      }.recover {
-        case ex: Throwable =>
-          resultPromise.failure(ex)
+          Future.successful(None)
       }
-
-      resultPromise.future
-    }
 
     def flatMapTOuter[B](f: A => Future[B]): Future[Option[B]] =
       t.flatMap {
