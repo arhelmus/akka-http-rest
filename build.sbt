@@ -4,11 +4,11 @@ version := "1.0.0"
 scalaVersion := "2.12.4"
 
 libraryDependencies ++= {
-  val akkaHttpV = "10.0.10"
+  val akkaHttpV = "10.0.11"
   val scalaTestV = "3.0.4"
   val slickVersion = "3.2.1"
-  val circeV = "0.8.0"
-  val sttpV = "1.0.0"
+  val circeV = "0.9.1"
+  val sttpV = "1.1.5"
   Seq(
     // HTTP server
     "com.typesafe.akka" %% "akka-http" % akkaHttpV,
@@ -36,7 +36,7 @@ libraryDependencies ++= {
     "com.pauldijou" %% "jwt-core" % "0.14.0",
 
     // Config file parser
-    "com.github.pureconfig" %% "pureconfig" % "0.8.0",
+    "com.github.pureconfig" %% "pureconfig" % "0.9.0",
 
     // JSON serialization library
     "io.circe" %% "circe-core" % circeV,
@@ -44,7 +44,7 @@ libraryDependencies ++= {
     "io.circe" %% "circe-parser" % circeV,
 
     // Sugar for serialization and deserialization in akka-http with circe
-    "de.heikoseeberger" %% "akka-http-circe" % "1.18.0",
+    "de.heikoseeberger" %% "akka-http-circe" % "1.19.0",
 
     // Validation library
     "com.wix" %% "accord-core" % "0.7.1",
