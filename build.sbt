@@ -1,21 +1,21 @@
 name := "akka-http-rest"
 organization := "me.archdev"
 version := "1.0.0"
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.5"
 
 libraryDependencies ++= {
-  val akkaHttpV = "10.0.11"
-  val scalaTestV = "3.0.4"
-  val slickVersion = "3.2.1"
-  val circeV = "0.9.1"
-  val sttpV = "1.1.5"
+  val akkaHttpV = "10.1.0"
+  val scalaTestV = "3.0.5"
+  val slickVersion = "3.2.3"
+  val circeV = "0.9.3"
+  val sttpV = "1.1.13"
   Seq(
     // HTTP server
     "com.typesafe.akka" %% "akka-http" % akkaHttpV,
     "com.typesafe.akka" %% "akka-http-core" % akkaHttpV,
 
     // Support of CORS requests, version depends on akka-http
-    "ch.megard" %% "akka-http-cors" % "0.2.2",
+    "ch.megard" %% "akka-http-cors" % "0.3.0",
 
     // SQL generator
     "com.typesafe.slick" %% "slick" % slickVersion,
@@ -33,10 +33,10 @@ libraryDependencies ++= {
     "com.roundeights" %% "hasher" % "1.2.0",
 
     // Parsing and generating of JWT tokens
-    "com.pauldijou" %% "jwt-core" % "0.14.0",
+    "com.pauldijou" %% "jwt-core" % "0.16.0",
 
     // Config file parser
-    "com.github.pureconfig" %% "pureconfig" % "0.9.0",
+    "com.github.pureconfig" %% "pureconfig" % "0.9.1",
 
     // JSON serialization library
     "io.circe" %% "circe-core" % circeV,
@@ -44,7 +44,7 @@ libraryDependencies ++= {
     "io.circe" %% "circe-parser" % circeV,
 
     // Sugar for serialization and deserialization in akka-http with circe
-    "de.heikoseeberger" %% "akka-http-circe" % "1.19.0",
+    "de.heikoseeberger" %% "akka-http-circe" % "1.20.1",
 
     // Validation library
     "com.wix" %% "accord-core" % "0.7.1",
