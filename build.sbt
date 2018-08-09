@@ -1,10 +1,10 @@
 name := "akka-http-rest"
 organization := "me.archdev"
 version := "1.0.0"
-scalaVersion := "2.12.5"
+scalaVersion := "2.12.6"
 
 libraryDependencies ++= {
-  val akkaHttpV = "10.1.0"
+  val akkaHttpV = "10.1.3"
   val scalaTestV = "3.0.5"
   val slickVersion = "3.2.3"
   val circeV = "0.9.3"

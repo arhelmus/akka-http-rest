@@ -3,7 +3,7 @@ package me.archdev.restapi.core.profiles
 import me.archdev.restapi.core.UserProfile
 import me.archdev.restapi.utils.db.DatabaseConnector
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 sealed trait UserProfileStorage {
 
@@ -16,8 +16,10 @@ sealed trait UserProfileStorage {
 }
 
 class JdbcUserProfileStorage(
-  val databaseConnector: DatabaseConnector
-)(implicit executionContext: ExecutionContext) extends UserProfileTable with UserProfileStorage {
+    val databaseConnector: DatabaseConnector
+)(implicit executionContext: ExecutionContext)
+    extends UserProfileTable
+    with UserProfileStorage {
 
   import databaseConnector._
   import databaseConnector.profile.api._

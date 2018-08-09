@@ -4,7 +4,7 @@ import me.archdev.restapi.core.AuthData
 import me.archdev.restapi.utils.db.DatabaseConnector
 import me.archdev.restapi.core.profiles.UserProfileStorage
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 sealed trait AuthDataStorage {
 
@@ -15,8 +15,10 @@ sealed trait AuthDataStorage {
 }
 
 class JdbcAuthDataStorage(
-  val databaseConnector: DatabaseConnector
-)(implicit executionContext: ExecutionContext) extends AuthDataTable with AuthDataStorage {
+    val databaseConnector: DatabaseConnector
+)(implicit executionContext: ExecutionContext)
+    extends AuthDataTable
+    with AuthDataStorage {
 
   import databaseConnector._
   import databaseConnector.profile.api._

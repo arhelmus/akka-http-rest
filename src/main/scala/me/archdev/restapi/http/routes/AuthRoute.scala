@@ -21,23 +21,23 @@ class AuthRoute(authService: AuthService)(implicit executionContext: ExecutionCo
           entity(as[LoginPassword]) { loginPassword =>
             complete(
               signIn(loginPassword.login, loginPassword.password).map {
-                case Some(token) => OK -> token.asJson
-                case None => BadRequest -> None.asJson
+                case Some(token) => OK         -> token.asJson
+                case None        => BadRequest -> None.asJson
               }
             )
           }
         }
       }
     } ~
-      path("signUp") {
-        pathEndOrSingleSlash {
-          post {
-            entity(as[UsernamePasswordEmail]) { userEntity =>
-              complete(Created -> signUp(userEntity.username, userEntity.email, userEntity.password))
-            }
+    path("signUp") {
+      pathEndOrSingleSlash {
+        post {
+          entity(as[UsernamePasswordEmail]) { userEntity =>
+            complete(Created -> signUp(userEntity.username, userEntity.email, userEntity.password))
           }
         }
       }
+    }
   }
 
   private case class LoginPassword(login: String, password: String)

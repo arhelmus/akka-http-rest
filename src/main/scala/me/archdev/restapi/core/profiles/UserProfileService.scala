@@ -1,11 +1,11 @@
 package me.archdev.restapi.core.profiles
 
-import me.archdev.restapi.core.{UserProfile, UserProfileUpdate}
+import me.archdev.restapi.core.{ UserProfile, UserProfileUpdate }
 import me.archdev.restapi.utils.MonadTransformers._
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 class UserProfileService(
-  userProfileStorage: UserProfileStorage
+    userProfileStorage: UserProfileStorage
 )(implicit executionContext: ExecutionContext) {
 
   def getProfiles(): Future[Seq[UserProfile]] =

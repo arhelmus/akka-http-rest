@@ -1,6 +1,6 @@
 package me.archdev.restapi.utils.db
 
-import com.zaxxer.hikari.{HikariConfig, HikariDataSource}
+import com.zaxxer.hikari.{ HikariConfig, HikariDataSource }
 
 class DatabaseConnector(jdbcUrl: String, dbUser: String, dbPassword: String) {
 

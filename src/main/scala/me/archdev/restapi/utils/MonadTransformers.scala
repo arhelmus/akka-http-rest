@@ -1,6 +1,6 @@
 package me.archdev.restapi.utils
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
   * Monad transformers its classes that extends default monad's like Future or Option.

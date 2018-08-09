@@ -35,6 +35,11 @@ that means that service MUST NOT implement storaging and querying for the data.
 For storaging there are Storage classes that always have interface with two implementation, production one and
 in-memory one. That's needed to fasten tests of services and make it independent from each other.
 
+### Code formatting
+There are [Scalafmt](https://scalameta.org/scalafmt/) integrated to the project. Its a opinionated code formatter that
+formats a code automatically instead of you. To use it, please run `sbt scalafmt` before commit or enable format on save
+in IntelijIdea (should be available in other editors too).
+
 ### Checking code coverage
 To generate code coverage report, please run: `sbt clean coverage test coverageReport`.
 Then you will have HTML pages with reports in `/target/scala-2.12/scoverage-report`

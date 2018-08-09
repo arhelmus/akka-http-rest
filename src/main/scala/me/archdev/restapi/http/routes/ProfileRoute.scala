@@ -12,9 +12,10 @@ import me.archdev.restapi.utils.SecurityDirectives
 import scala.concurrent.ExecutionContext
 
 class ProfileRoute(
-  secretKey: String,
-  usersService: UserProfileService
-)(implicit executionContext: ExecutionContext) extends FailFastCirceSupport {
+    secretKey: String,
+    usersService: UserProfileService
+)(implicit executionContext: ExecutionContext)
+    extends FailFastCirceSupport {
 
   import SecurityDirectives._
   import StatusCodes._
@@ -26,42 +27,42 @@ class ProfileRoute(
         complete(getProfiles().map(_.asJson))
       }
     } ~
-      pathPrefix("me") {
-        pathEndOrSingleSlash {
-          authenticate(secretKey) { userId =>
-            get {
-              complete(getProfile(userId))
-            } ~
-              post {
-                entity(as[UserProfileUpdate]) { userUpdate =>
-                  complete(updateProfile(userId, userUpdate).map(_.asJson))
-                }
-              }
+    pathPrefix("me") {
+      pathEndOrSingleSlash {
+        authenticate(secretKey) { userId =>
+          get {
+            complete(getProfile(userId))
+          } ~
+          post {
+            entity(as[UserProfileUpdate]) { userUpdate =>
+              complete(updateProfile(userId, userUpdate).map(_.asJson))
+            }
           }
         }
-      } ~
-      pathPrefix(Segment) { id =>
-        pathEndOrSingleSlash {
-          get {
-            complete(getProfile(id).map {
+      }
+    } ~
+    pathPrefix(Segment) { id =>
+      pathEndOrSingleSlash {
+        get {
+          complete(getProfile(id).map {
+            case Some(profile) =>
+              OK -> profile.asJson
+            case None =>
+              BadRequest -> None.asJson
+          })
+        } ~
+        post {
+          entity(as[UserProfileUpdate]) { userUpdate =>
+            complete(updateProfile(id, userUpdate).map {
               case Some(profile) =>
                 OK -> profile.asJson
               case None =>
                 BadRequest -> None.asJson
             })
-          } ~
-            post {
-              entity(as[UserProfileUpdate]) { userUpdate =>
-                complete(updateProfile(id, userUpdate).map {
-                  case Some(profile) =>
-                    OK -> profile.asJson
-                  case None =>
-                    BadRequest -> None.asJson
-                })
-              }
-            }
+          }
         }
       }
+    }
   }
 
 }

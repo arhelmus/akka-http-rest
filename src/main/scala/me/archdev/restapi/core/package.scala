@@ -2,7 +2,7 @@ package me.archdev.restapi
 
 package object core {
 
-  type UserId = String
+  type UserId    = String
   type AuthToken = String
 
   final case class AuthTokenContent(userId: UserId)
@@ -21,9 +21,8 @@ package object core {
   }
 
   final case class UserProfileUpdate(firstName: Option[String] = None, lastName: Option[String] = None) {
-    def merge(profile: UserProfile): UserProfile = {
+    def merge(profile: UserProfile): UserProfile =
       UserProfile(profile.id, firstName.getOrElse(profile.firstName), lastName.getOrElse(profile.lastName))
-    }
   }
 
 }
