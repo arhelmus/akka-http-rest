@@ -79,3 +79,7 @@ You can see documentation for this example on [Apiary](http://docs.akkahttprest.
 ## Copyright
 Copyright (C) 2017 Arthur Kushka.  
 Distributed under the MIT License.
+
+## Contact
+Wanna ask me something or stay in touch?   
+Follow my Twitter [@arhelmus](https://twitter.com/Arhelmus)
