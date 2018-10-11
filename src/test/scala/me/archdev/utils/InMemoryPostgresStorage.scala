@@ -16,7 +16,7 @@ object InMemoryPostgresStorage {
   val jdbcUrl = s"jdbc:postgresql://$dbHost:$dbPort/$dbName"
 
   val psqlConfig = new PostgresConfig(
-    Version.V9_6_3, new Net(dbHost, dbPort),
+    Version.Main.V9_6, new Net(dbHost, dbPort),
     new Storage(dbName), new Timeout(),
     new Credentials(dbUser, dbPassword)
   )

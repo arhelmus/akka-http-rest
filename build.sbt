@@ -55,7 +55,7 @@ libraryDependencies ++= {
 
     "org.scalatest" %% "scalatest" % scalaTestV % Test,
     "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpV % Test,
-    "ru.yandex.qatools.embed" % "postgresql-embedded" % "2.4" % Test,
+    "ru.yandex.qatools.embed" % "postgresql-embedded" % "2.9" % Test,
     "org.mockito" % "mockito-all" % "1.9.5" % Test
   )
 }
