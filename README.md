@@ -1,8 +1,6 @@
 Akka Slick REST service template
 =========================
 
-[![Build Status](https://travis-ci.org/ArchDev/akka-http-rest.svg?branch=master)](https://travis-ci.org/ArchDev/akka-http-rest)
-
 Goal of example is to show how create reactive REST services on Lightbend stack with Akka and Slick.
 
 Example contains complete REST service for entity interaction.
