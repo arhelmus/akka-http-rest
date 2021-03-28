@@ -1,18 +1,6 @@
 language: scala
-jdk: oraclejdk8
 cache:
   directories:
   - "$HOME/.ivy2/cache"
   - "$HOME/.sbt/boot/"
-scala:
-- 2.12.7
-jdk:
-- oraclejdk8
 script: sbt test
-deploy:
-  provider: heroku
-  api_key:
-    secure: GFBB1vv7qFfLhiQmsCvBUEx7+RHoxihigxxwF4vlB7u8JFiEv2PaezMSJ6HxekvijkmFbuGk41osYzKbmQchflLC5MsZwHZtDq2LXi0N1dikIhgcxH24EKAOtW2gI5t5n2GVo6b/3cybInYbTi+CgKSRJ4UdZSrZKGMrSZlIA3kGtnxLsY2xByJ9vR9ki7gR448I6K0nGUfZDPXEYB6zOJvziu5utBgu+QNyJMle/kpH4E6jKhnrWedHf1RUp9ZaNwcBFNs0+aQ+/LPSJPnnrl/z/UJUor1Q9glQF2c31LWXCpREUgsPMQoGwcwHs+/tLJV4WKlFb0fvP7gsnovE3RdCjCsKZjOMM1P90cJjPbwXdnQlyp5b+bLFznRw0dHpXMf40yvuXWBbHtqYdEPAtLkFY/JSTAW5oYOII3SyemopKmgi4eDC+s6JysZajU224f/EXjB7C89e3M2q4Iu/o8BFzEKIbs9BlkoM8SI4QRua3Qr3+HZNDjp4uY60V5JKn74sRtdDeCBGPi0VESaYAKvi/H4I+z6AJ5fxBDgXuUxMF4P/+1AY8o/bH3snEo1+fAgWRHkpvqNsB2mPa//HwZfB2s8UhkhijayzQ/hR5/yxJQl6kVnuBVU4IV6dR9eQYHye1XzuDUpgoSrLEoO6q7y++BVv8iKC97Vo8AuNS/M=
-  app: akka-http-rest
-  on:
-    repo: ArchDev/akka-http-rest
