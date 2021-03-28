@@ -2,7 +2,6 @@ package me.archdev.restapi
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.stream.ActorMaterializer
 import me.archdev.restapi.core.auth.{ AuthService, JdbcAuthDataStorage }
 import me.archdev.restapi.core.profiles.{ JdbcUserProfileStorage, UserProfileService }
 import me.archdev.restapi.http.HttpRoute
@@ -16,7 +15,6 @@ object Boot extends App {
   def startApplication() = {
     implicit val actorSystem                     = ActorSystem()
     implicit val executor: ExecutionContext      = actorSystem.dispatcher
-    implicit val materializer: ActorMaterializer = ActorMaterializer()
 
     val config = Config.load()
 
@@ -39,7 +37,7 @@ object Boot extends App {
     val authService  = new AuthService(authDataStorage, config.secretKey)
     val httpRoute    = new HttpRoute(usersService, authService, config.secretKey)
 
-    Http().bindAndHandle(httpRoute.route, config.http.host, config.http.port)
+    Http().newServerAt(config.http.host, config.http.port).bind(httpRoute.route)
   }
 
   startApplication()

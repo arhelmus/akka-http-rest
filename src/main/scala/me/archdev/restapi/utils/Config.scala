@@ -1,6 +1,7 @@
 package me.archdev.restapi.utils
 
 import pureconfig.loadConfig
+import pureconfig.generic.auto._
 
 case class Config(secretKey: String, http: HttpConfig, database: DatabaseConfig)
 
